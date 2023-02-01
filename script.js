@@ -36,8 +36,8 @@ function playRound(playerSelection, computerSelection) {
     return "Rock beats scissors.\nYou lost.";
   } else if (playerSelection === 'scissors' && computerSelection === 'paper') {
     return "Scissors beat paper.\nComputer lost.";
-  } else if ((playerSelection === 'rock' && computerSelection === 'rock')
-    || (playerSelection === 'paper' && computerSelection === 'paper')
+  } else if ((playerSelection === 'rock' && computerSelection === 'rock') 
+    || (playerSelection === 'paper' && computerSelection === 'paper') 
     || (playerSelection === 'scissors' && computerSelection === 'scissors')) {
     return "It's a tie!";
   } 
@@ -45,8 +45,29 @@ function playRound(playerSelection, computerSelection) {
 
 // PROGRAM game()
 //   LOOP playRound() 5 times
-//   IF win then add the score to the win variable
-//   ELSE IF lose then add the score to the lose variable
-//   IF win is more than 4
+//   IF win then add 1 to result
+//   ELSE IF lose then add subtract 1 from result
+//   IF result is more than 0
 //     PRINT 'You won the game!'
 //   ELSE print 'You lost the game!'
+
+function game() {
+  let result = 0;
+  for (let i = 0; i < 5; i++) {
+    let playerSelection = prompt("Choose your weapon! Type rock, paper or scissors: ").toLowerCase();
+    if (playerSelection !== "rock" 
+      && playerSelection !== "paper" 
+      && playerSelection !== "scissors") {
+      console.log("You should type rock, paper or scissors");
+      i--;
+    } else {
+      let computerSelection = getComputerChoice(rps);
+      let roundResult = playRound(playerSelection, computerSelection);
+      roundResult.includes("You") ? result -= 1 : (roundResult.includes("Computer") ? result += 1 : '');
+      console.log(roundResult);
+    }
+  }
+  console.log(result > 0 ? "You won the game! Congrats!" : (result < 0 ? "You lost the game :(" : "It's a complete tie"));
+}
+
+game()
