@@ -28,7 +28,7 @@ function playRound(playerSelection, computerSelection) {
 
 
 function game() {
-  let result = 0;
+  let score = 0;
   for (let i = 0; i < 5; i++) {
     let playerSelection = prompt("Choose your weapon! Type rock, paper or scissors: ").toLowerCase();
     if (playerSelection !== "rock" 
@@ -40,14 +40,14 @@ function game() {
       let computerSelection = getComputerChoice(rps);
       let roundResult = playRound(playerSelection, computerSelection);
       if (roundResult.includes("You lost")) {
-        result -= 1;
+        score -= 1;
       } else if (roundResult.includes("Computer lost")) {
-        result += 1;
+        score += 1;
       }
       console.log(roundResult);
     }
   }
-  console.log(result > 0 ? "You won the game! Congrats!" : (result < 0 ? "You lost the game :(" : "It's a complete tie"));
+  console.log(score > 0 ? "You won the game! Congrats!" : (score < 0 ? "You lost the game :(" : "It's a complete tie"));
 }
 
 game()
