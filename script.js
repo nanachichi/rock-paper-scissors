@@ -1,8 +1,7 @@
-const rps = ['rock', 'paper', 'scissors'];
-
-function getComputerChoice(choices) {
-  let choice = Math.floor(Math.random() * 3);
-  return choices[choice];
+function getComputerChoice() {
+  const weapons = ['rock', 'paper', 'scissors'];
+  const choice = weapons[Math.floor(Math.random() * weapons.length)];
+  return choice;
 }
 
 
@@ -19,35 +18,71 @@ function playRound(playerSelection, computerSelection) {
     return "Rock beats scissors.\nYou lost.";
   } else if (playerSelection === 'scissors' && computerSelection === 'paper') {
     return "Scissors beat paper.\nComputer lost.";
-  } else if ((playerSelection === 'rock' && computerSelection === 'rock') 
-    || (playerSelection === 'paper' && computerSelection === 'paper') 
-    || (playerSelection === 'scissors' && computerSelection === 'scissors')) {
+  } else if (playerSelection === computerSelection) {
     return "It's a tie!";
   } 
 }
 
 
-function game() {
-  let score = 0;
-  for (let i = 0; i < 5; i++) {
-    let playerSelection = prompt("Choose your weapon! Type rock, paper or scissors: ").toLowerCase();
-    if (playerSelection !== "rock" 
-      && playerSelection !== "paper" 
-      && playerSelection !== "scissors") {
-      console.log("You should type rock, paper or scissors");
-      i--;
-    } else {
-      let computerSelection = getComputerChoice(rps);
-      let roundResult = playRound(playerSelection, computerSelection);
-      if (roundResult.includes("You lost")) {
-        score -= 1;
-      } else if (roundResult.includes("Computer lost")) {
-        score += 1;
-      }
-      console.log(roundResult);
-    }
+const buttons = document.querySelectorAll('button');
+const results = document.getElementById('results');
+const win = document.querySelector('.win');
+const lose = document.querySelector('.lose');
+const weapons = document.getElementById('weapons');
+
+let playerWin = 0;
+let playerLose = 0;
+
+win.textContent = `Win: ${playerWin}`;
+lose.textContent = `Lose: ${playerLose}`;
+
+
+function disableButtons() {
+  buttons.forEach(button => {
+    button.disabled = true;
+  });
+}
+
+
+function showResult() {
+  if (playerWin === 5) {
+    const divResults = document.createElement('div');
+    divResults.textContent = 'You won the game!';
+    weapons.after(divResults);
+    disableButtons();
   }
-  console.log(score > 0 ? "You won the game! Congrats!" : (score < 0 ? "You lost the game :(" : "It's a complete tie"));
+  if (playerLose === 5) {
+    const divResults = document.createElement('div');
+    divResults.textContent = 'You won the game!';
+    weapons.after(divResults);
+    disableButtons();
+  }
+}
+
+
+function countScore() {
+  if (results.textContent.includes("You lost")) {
+    playerLose += 1;
+    lose.textContent = `Lose: ${playerLose}`;
+  } else if (results.textContent.includes("Computer lost")) {
+    playerWin += 1;
+    win.textContent = `Win: ${playerWin}`;
+  }
+}
+
+
+function game() {
+
+  buttons.forEach(button => {
+    button.addEventListener('click', (e) => {
+      let playerSelection = e.target.className;
+      let result = playRound(playerSelection, getComputerChoice());
+      results.textContent = result;
+      countScore();
+      showResult();
+    });
+  });
+  
 }
 
 game()
