@@ -6,23 +6,23 @@ function getComputerChoice() {
 
 
 function playRound(playerSelection, computerSelection) {
-  if (playerSelection === 'rock' && computerSelection === 'paper') {
-    return "Paper beats rock.\nYou lost.";
-  } else if (playerSelection === 'rock' && computerSelection === 'scissors') {
-    return "Rock beats scissors.\nComputer lost.";
-  } else if (playerSelection === 'paper' && computerSelection === 'rock') {
-    return "Paper beats rock.\nComputer lost.";
-  } else if (playerSelection === 'paper' && computerSelection === 'scissors') {
-    return "Scissors beat paper.\nYou lost.";
-  } else if (playerSelection === 'scissors' && computerSelection === 'rock') {
-    return "Rock beats scissors.\nYou lost.";
-  } else if (playerSelection === 'scissors' && computerSelection === 'paper') {
-    return "Scissors beat paper.\nComputer lost.";
-  } else if (playerSelection === computerSelection) {
-    return "It's a tie!";
+  switch (true) {
+    case (playerSelection === 'rock' && computerSelection === 'paper'):
+      return "Paper beats rock.\nYou lost.";
+    case (playerSelection === 'rock' && computerSelection === 'scissors'):
+      return "Rock beats scissors.\nComputer lost.";
+    case (playerSelection === 'paper' && computerSelection === 'rock'):
+      return "Paper beats rock.\nComputer lost.";
+    case (playerSelection === 'paper' && computerSelection === 'scissors'):
+      return "Scissors beat paper.\nYou lost.";
+    case (playerSelection === 'scissors' && computerSelection === 'rock'):
+      return "Rock beats scissors.\nYou lost.";
+    case (playerSelection === 'scissors' && computerSelection === 'paper'):
+      return "Scissors beat paper.\nComputer lost.";
+    case (playerSelection === computerSelection):
+      return "It's a tie!";
   } 
 }
-
 
 const buttons = document.querySelectorAll('button');
 const results = document.getElementById('results');
@@ -35,7 +35,6 @@ let playerLose = 0;
 
 win.textContent = `Win: ${playerWin}`;
 lose.textContent = `Lose: ${playerLose}`;
-
 
 function disableButtons() {
   buttons.forEach(button => {
