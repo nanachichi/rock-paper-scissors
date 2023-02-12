@@ -25,10 +25,12 @@ function playRound(playerSelection, computerSelection) {
 }
 
 const buttons = document.querySelectorAll('button');
-const results = document.getElementById('results');
+const results = document.querySelector('.results');
 const win = document.querySelector('.win');
 const lose = document.querySelector('.lose');
-const weapons = document.getElementById('weapons');
+const weapons = document.querySelector('.weapons');
+const textbox = document.querySelector('.textbox');
+const character = document.querySelector('.character');
 
 let playerWin = 0;
 let playerLose = 0;
@@ -46,14 +48,14 @@ function disableButtons() {
 function showResult() {
   if (playerWin === 5) {
     const divResults = document.createElement('div');
-    divResults.textContent = 'You won the game!';
-    weapons.after(divResults);
+    divResults.textContent = 'Congratulations!';
+    results.after(divResults);
     disableButtons();
   }
   if (playerLose === 5) {
     const divResults = document.createElement('div');
-    divResults.textContent = 'You won the game!';
-    weapons.after(divResults);
+    divResults.textContent = 'GAME OVER';
+    results.after(divResults);
     disableButtons();
   }
 }
@@ -69,8 +71,43 @@ function countScore() {
   }
 }
 
+function displayNewText(txt) {
+
+  // Clear the textbox
+  textbox.innerHTML = '';
+
+  // Type writer effect
+  let i = 0;
+  let speed = 50;
+  function type(txt, speed) {
+    if (i < txt.length)
+    textbox.innerHTML += txt.charAt(i);
+    setTimeout(type, speed, txt, speed, i++);
+  }
+  type(txt, speed);
+}
+
 
 function game() {
+  // Character appears;
+  window.onload = () => {
+    function updateCharacter(i) {
+      setTimeout(() => {
+        character.style.right = i + "px";
+        if (i < -300) updateCharacter(i + 1);
+      }, 10);
+    }
+    updateCharacter(-600);
+  }
+
+  // Show text
+  setTimeout(() => {
+    displayNewText("A wild Cirno appeared!");
+  }, 5000);
+
+  setTimeout(() => {
+    displayNewText("Choose your weapon!");
+  }, 10000);
 
   buttons.forEach(button => {
     button.addEventListener('click', (e) => {

@@ -1,0 +1,76 @@
+:root {
+  --pixel-size: 1.5;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Silkscreen", Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game {
+  border: solid black;
+  height: 600px;
+  width: 600px;
+}
+
+.textbox {
+  border: solid black;
+  height: 200px;
+}
+
+.main-window {
+  background: #97ffc1;
+  background-image: url("https://static.wikia.nocookie.net/mugen/images/9/93/DABAHakureiShrineprev1.png/");
+  background-repeat: no-repeat;
+  background-size: cover;
+  image-rendering: pixelated;
+  height: 400px;
+  max-height: 400px;
+  display: inner-block;
+}
+
+.character {
+  height: calc(198px * var(--pixel-size));
+  width: calc(150px * var(--pixel-size));
+  overflow: hidden;
+  transform: rotateY(180deg);
+  position: relative;
+  right: 100px;
+}
+
+.character-spritesheet {
+  animation: moveSpritesheet 1s steps(4) infinite;
+  width: calc(600px * var(--pixel-size));
+  position: relative;
+}
+
+.pixelart {
+  image-rendering: pixelated;
+}
+
+.eyes-closed {
+  top: calc(-194px * var(--pixel-size));
+}
+
+.hands-up {
+  top: calc(-390px * var(--pixel-size));
+}
+
+.fall {
+  top: calc(-594px * var(--pixel-size));
+}
+
+@keyframes moveSpritesheet {
+  from {
+    transform: translate3d(0px, 0, 0)
+  }
+  to {
+    transform: translate3d(-100%, 0, 0)
+  }
+}

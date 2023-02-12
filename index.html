@@ -1,30 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Rock, Paper, Skissors</title>
+    <title>Rock, Paper, Skissors</title>
 
-  <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen&display=swap" rel="stylesheet">
 
-  <script src="script.js" defer></script>
-</head>
-<body>
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="header">Rock, Paper, Scissors</div>
 
-  <div id="score">Score</div>
-    <div class="win">Win: </div>
-    <div class="lose">Lose: </div>
-  </div>
+    <!-- MAIN GAME -->
+    <div class="game">
+      <div class="main-window">
+        <div class="character">
+          <img class="character-spritesheet" src="images/cirno-sprite.png" alt="Character" />
+        </div>
+      </div>
+      <div class="textbox">
+      </div>
+    </div>
+    <!-- MAIN GAME -->
 
-  <div id="results"></div>
+    <div class="content">
+      <div class="weaponsEnemy">
+        <button class="rock">Rock</button>
+        <button class="paper">Paper</button>
+        <button class="scissors">Scissors</button>
+      </div>
+      <div class="information">
+        <div class="results">
+        </div>
+        <div class="score">
+          Score
+          <div class="win">Win:</div>
+          <div class="lose">Lose:</div>
+        </div>
+      </div>
 
-  <div id="weapons">
-    <button class="rock">Rock</button>
-    <button class="paper">Paper</button>
-    <button class="scissors">Scissors</button>
-  </div>
+      <div class="weaponsPlayer">
+        <button class="rock">Rock</button>
+        <button class="paper">Paper</button>
+        <button class="scissors">Scissors</button>
+      </div>
+    </div>
 
-</body>
+    <div class="footer">
+      <p class="copyright">some copyright</p>
+    </div>
+  </body>
 </html>
