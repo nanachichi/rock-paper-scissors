@@ -8,17 +8,26 @@ function getComputerChoice() {
 function playRound(playerSelection, computerSelection) {
   switch (true) {
     case (playerSelection === 'rock' && computerSelection === 'paper'):
-      return "Paper beats rock.\nYou lost.";
+      characterSpritesheet.classList.add('hands-up');
+      return `${computerSelection} beats ${playerSelection}. You lost.`;
     case (playerSelection === 'rock' && computerSelection === 'scissors'):
-      return "Rock beats scissors.\nComputer lost.";
+      fallCharacter(100);
+      characterSpritesheet.classList.add('stumble');
+      return `${playerSelection} beats ${computerSelection}. Cirno lost.`;
     case (playerSelection === 'paper' && computerSelection === 'rock'):
-      return "Paper beats rock.\nComputer lost.";
+      fallCharacter(100);
+      characterSpritesheet.classList.add('stumble');
+      return `${playerSelection} beats ${computerSelection}. Cirno lost.`;
     case (playerSelection === 'paper' && computerSelection === 'scissors'):
-      return "Scissors beat paper.\nYou lost.";
+      characterSpritesheet.classList.add('hands-up');
+      return `${computerSelection} beat ${playerSelection}. You lost.`;
     case (playerSelection === 'scissors' && computerSelection === 'rock'):
-      return "Rock beats scissors.\nYou lost.";
+      characterSpritesheet.classList.add('hands-up');
+      return `${computerSelection} beats ${playerSelection}. You lost.`;
     case (playerSelection === 'scissors' && computerSelection === 'paper'):
-      return "Scissors beat paper.\nComputer lost.";
+      fallCharacter(100);
+      characterSpritesheet.classList.add('stumble');
+      return `${playerSelection} beat ${computerSelection}. Cirno lost.`;
     case (playerSelection === computerSelection):
       return "It's a tie!";
   } 
@@ -31,12 +40,15 @@ const lose = document.querySelector('.lose');
 const weapons = document.querySelector('.weapons');
 const textbox = document.querySelector('.textbox');
 const character = document.querySelector('.character');
+const characterSpritesheet = document.querySelector('.character-spritesheet');
 
 let playerWin = 0;
 let playerLose = 0;
 
 win.textContent = `Win: ${playerWin}`;
 lose.textContent = `Lose: ${playerLose}`;
+
+
 
 function disableButtons() {
   buttons.forEach(button => {
@@ -61,15 +73,17 @@ function showResult() {
 }
 
 
-function countScore() {
-  if (results.textContent.includes("You lost")) {
+// Count and display win & lose score.
+function countScore(result) {
+  if (result.includes("You lost")) {
     playerLose += 1;
     lose.textContent = `Lose: ${playerLose}`;
-  } else if (results.textContent.includes("Computer lost")) {
+  } else if (result.includes("Cirno lost")) {
     playerWin += 1;
     win.textContent = `Win: ${playerWin}`;
   }
 }
+
 
 function displayNewText(txt) {
 
@@ -88,16 +102,51 @@ function displayNewText(txt) {
 }
 
 
-function game() {
-  // Character appears;
-  window.onload = () => {
-    function updateCharacter(i) {
-      setTimeout(() => {
-        character.style.right = i + "px";
-        if (i < -300) updateCharacter(i + 1);
-      }, 10);
+// Display the results of the round and proceed to the next choice
+function displayResultAndContinue(result) {
+  weapons.style.display = "none";
+  displayNewText(result);
+  setTimeout(() => {
+    if (characterSpritesheet.classList.contains('hands-up')) {
+      characterSpritesheet.classList.remove('hands-up');
+    } else if (characterSpritesheet.classList.contains('eyes-closed')) {
+      characterSpritesheet.classList.remove('eyes-closed');
+    } else if (characterSpritesheet.classList.contains('stumble')) {
+      characterSpritesheet.classList.remove('stumble');
+      // Fly up to her initial postiton
+      fallCharacter(0)
     }
-    updateCharacter(-600);
+    displayNewText("Choose your weapon!");
+  }, 4000)
+  setTimeout(() => {
+    // Display weapon choices
+    textbox.appendChild(weapons);
+    weapons.style.display = "flex";
+  }, 6000);
+}
+
+
+// Make the character appear from right to left
+function appearCharacter(i) {
+  setTimeout(() => {
+    character.style.right = i + "px";
+    if (i < -300) appearCharacter(i + 1);
+  }, 10);
+}
+
+
+// Make the character fall
+function fallCharacter(i) {
+  setTimeout(() => {
+    character.style.top = i + "px";
+    if (i < -300) fallCharacter(i + 1);
+  }, 100);
+}
+
+function game() {
+
+  window.onload = () => {
+    appearCharacter(-600);
   }
 
   // Show text
@@ -107,14 +156,33 @@ function game() {
 
   setTimeout(() => {
     displayNewText("Choose your weapon!");
+
+    // Play theme track
+    const source = "sounds/05.\ Tomboyish\ Girl\ in\ Love.mp3";
+    const audio = document.createElement('audio');
+    audio.autoplay = true;
+    audio.load()
+    audio.addEventListener("load", () => {
+      audio.play();
+    }, true);
+    audio.src = source;
+
   }, 10000);
+
+  setTimeout(() => {
+
+    // Display choices
+    textbox.appendChild(weapons);
+    weapons.style.display = "flex";
+  }, 12000)
 
   buttons.forEach(button => {
     button.addEventListener('click', (e) => {
       let playerSelection = e.target.className;
       let result = playRound(playerSelection, getComputerChoice());
-      results.textContent = result;
-      countScore();
+
+      displayResultAndContinue(result);
+      countScore(result);
       showResult();
     });
   });
