@@ -43,6 +43,7 @@ const character = document.querySelector('.character');
 const characterSpritesheet = document.querySelector('.character-spritesheet');
 const text = document.querySelector('.text');
 const weapon = document.querySelector('.weapon');
+const left = document.querySelector('.left');
 
 let playerWin = 0;
 let playerLose = 0;
@@ -122,7 +123,7 @@ function displayResultAndContinue(result) {
   }, 4000)
   setTimeout(() => {
     // Display weapon choices
-    text.appendChild(weapons);
+    left.appendChild(weapons);
     weapons.style.display = "flex";
   }, 6000);
 }
@@ -174,7 +175,7 @@ function game() {
   setTimeout(() => {
 
     // Display choices
-    text.appendChild(weapons);
+    left.appendChild(weapons);
     weapons.style.display = "flex";
   }, 12000)
 
