@@ -55,7 +55,7 @@ lose.textContent = `Lose: ${playerLose}`;
 
 
 
-function disableButtons() {
+function retryButton() {
   buttons.forEach(button => {
     button.disabled = true;
   });
@@ -64,16 +64,45 @@ function disableButtons() {
 
 function showResult() {
   if (playerWin === 5) {
-    const divResults = document.createElement('div');
-    divResults.textContent = 'Congratulations!';
-    results.after(divResults);
-    disableButtons();
+    displayNewText("CONGRATULATIONS! YOU DEFEATED CIRNO!")
+    // Change current image to cirno-fall.png
+    setTimeout(() => {
+      character.style.top = "130px";
+      character.innerHTML = "<img class='cirno-fall' src='images/cirno-fall.png' />";
+    }, 2000);
+    weapons.remove();
+    // Retry button that reloads the page
+    const retry = document.createElement('button');
+    retry.classList.add('retry');
+    retry.innerHTML = "Retry?";
+    retry.style.marginTop = "10px";
+    retry.style.width = "100px";
+    retry.style.maxWidth = "100%";
+    setTimeout(() => {
+      left.appendChild(retry);
+    }, 2500);
+    retry.addEventListener('click', () => {
+      location.reload();
+    });
   }
   if (playerLose === 5) {
-    const divResults = document.createElement('div');
-    divResults.textContent = 'GAME OVER';
-    results.after(divResults);
-    disableButtons();
+    displayNewText("GAME OVER. Cirno is the strongest!")
+    characterSpritesheet.classList.remove('hands-up');
+    characterSpritesheet.classList.add('eyes-closed');
+    weapons.remove();
+    // Retry button that reloads the page
+    const retry = document.createElement('button');
+    retry.classList.add('retry');
+    retry.innerHTML = "Retry?";
+    retry.style.marginTop = "10px";
+    retry.style.width = "100px";
+    retry.style.maxWidth = "100%";
+    setTimeout(() => {
+      left.appendChild(retry);
+    }, 2500);
+    retry.addEventListener('click', () => {
+      location.reload();
+    });
   }
 }
 
@@ -127,7 +156,7 @@ function displayResultAndContinue(result) {
     // Display weapon choices
     left.appendChild(weapons);
     weapons.style.display = "flex";
-  }, 6000);
+  }, 5000);
 }
 
 
@@ -193,16 +222,15 @@ function game() {
 
   }, 10000);
 
+  // Display choices
   setTimeout(() => {
-
-    // Display choices
     left.appendChild(weapons);
     weapons.style.display = "flex";
-  }, 12000)
+  }, 11000)
 
   buttons.forEach(button => {
     button.addEventListener('click', (e) => {
-      // Remove the element if it's shown
+      // Remove an icon of selected weapon if it's shown
       if (weapon.style.display !== "none") {
         weapon.style.display = "none";
         weapon.innerHTML = '';
@@ -211,9 +239,12 @@ function game() {
       let playerSelection = e.target.className;
       let result = playRound(playerSelection, getComputerChoice());
 
-      displayResultAndContinue(result);
       countScore(result);
-      showResult();
+      if (playerWin !== 5 && playerLose !== 5) {
+        displayResultAndContinue(result);
+      } else {
+        showResult();
+      }
     });
     // Show an icon of selected weapon
     button.addEventListener('mouseover', (e) => {
