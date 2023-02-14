@@ -41,6 +41,8 @@ const weapons = document.querySelector('.weapons');
 const textbox = document.querySelector('.textbox');
 const character = document.querySelector('.character');
 const characterSpritesheet = document.querySelector('.character-spritesheet');
+const text = document.querySelector('.text');
+const weapon = document.querySelector('.weapon');
 
 let playerWin = 0;
 let playerLose = 0;
@@ -88,14 +90,14 @@ function countScore(result) {
 function displayNewText(txt) {
 
   // Clear the textbox
-  textbox.innerHTML = '';
+  text.innerHTML = '';
 
   // Type writer effect
   let i = 0;
   let speed = 50;
   function type(txt, speed) {
     if (i < txt.length)
-    textbox.innerHTML += txt.charAt(i);
+    text.innerHTML += txt.charAt(i);
     setTimeout(type, speed, txt, speed, i++);
   }
   type(txt, speed);
@@ -120,7 +122,7 @@ function displayResultAndContinue(result) {
   }, 4000)
   setTimeout(() => {
     // Display weapon choices
-    textbox.appendChild(weapons);
+    text.appendChild(weapons);
     weapons.style.display = "flex";
   }, 6000);
 }
@@ -172,12 +174,18 @@ function game() {
   setTimeout(() => {
 
     // Display choices
-    textbox.appendChild(weapons);
+    text.appendChild(weapons);
     weapons.style.display = "flex";
   }, 12000)
 
   buttons.forEach(button => {
     button.addEventListener('click', (e) => {
+      // Remove the element if it's shown
+      if (weapon.style.display !== "none") {
+        weapon.style.display = "none";
+        weapon.innerHTML = '';
+      }
+
       let playerSelection = e.target.className;
       let result = playRound(playerSelection, getComputerChoice());
 
@@ -185,8 +193,20 @@ function game() {
       countScore(result);
       showResult();
     });
+    // Show an icon of selected weapon
+    button.addEventListener('mouseover', (e) => {
+      let weaponName = e.target.className;
+      const img = document.createElement("img");
+      img.setAttribute("src", `images/${weaponName}.png`);
+      weapon.appendChild(img);
+      weapon.style.display = "flex";
+    });
+    button.addEventListener('mouseout', () => {
+      weapon.style.display = "none";
+      // Remove an icon inside the div
+      weapon.innerHTML = '';
+    })
   });
-  
 }
 
 game()
