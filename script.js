@@ -44,6 +44,8 @@ const characterSpritesheet = document.querySelector('.character-spritesheet');
 const text = document.querySelector('.text');
 const weapon = document.querySelector('.weapon');
 const left = document.querySelector('.left');
+const startScreen = document.querySelector('.start');
+const gameScreen = document.querySelector('.game');
 
 let playerWin = 0;
 let playerLose = 0;
@@ -146,11 +148,30 @@ function fallCharacter(i) {
   }, 100);
 }
 
-function game() {
 
-  window.onload = () => {
-    appearCharacter(-600);
+function start() {
+  // Type writer effect
+  let i = 0;
+  let speed = 150;
+  function type(txt, speed) {
+    if (i < txt.length)
+    startScreen.innerHTML += txt.charAt(i);
+    setTimeout(type, speed, txt, speed, i++);
   }
+  type("Click to start the game", speed);
+
+  document.body.addEventListener('click', () => {
+    startScreen.style.display = "none";
+    game()
+  }, { once: true });
+}
+start();
+
+
+function game() {
+  gameScreen.style.display = "block";
+  appearCharacter(-600);
+
 
   // Show text
   setTimeout(() => {
@@ -209,5 +230,3 @@ function game() {
     })
   });
 }
-
-game()

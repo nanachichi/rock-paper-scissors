@@ -7,6 +7,7 @@ body {
   margin: 0;
   font-family: "Silkscreen", Arial, Helvetica, sans-serif;
   color: #fff;
+  text-shadow: 1px 1px 2px rgb(173, 39, 39);
   background-color: #000;
   min-height: 100vh;
   display: flex;
@@ -15,12 +16,27 @@ body {
   align-items: center;
 }
 
+.start,
 .game {
   border: solid rgb(173, 39, 39);;
   height: 550px;
   width: 600px;
   max-height: 550px;
   max-width: 600px;
+}
+
+.start {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.score {
+  font-size: 20px;
+  position: absolute;
+  margin-top: 10px;
+  margin-left: 10px;
+  text-shadow: 1px 1px 2px rgb(173, 39, 39);
 }
 
 .textbox {
@@ -67,6 +83,7 @@ button {
   border: solid #1a83c9;
   border-bottom: solid #00558d;
   color: #fff;
+  text-shadow: 1px 1px 2px rgb(173, 39, 39);
   box-shadow: 0 3px #00558d;
   position: relative;
 }
