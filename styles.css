@@ -109,7 +109,7 @@ button:active {
   image-rendering: pixelated;
   height: 400px;
   max-height: 400px;
-  display: inner-block;
+  overflow: hidden;
 }
 
 .character {
@@ -125,6 +125,11 @@ button:active {
   animation: moveSpritesheet 1s steps(4) infinite;
   width: calc(600px * var(--pixel-size));
   position: relative;
+}
+
+.cirno-fall {
+  height: calc(198px * 1.25);
+  width: calc(150px * 1.25);
 }
 
 .pixelart {
