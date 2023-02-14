@@ -24,12 +24,19 @@ body {
 }
 
 .textbox {
+  display: flex;
+  justify-content: space-between;
   background-color: #000;
   padding: 10px 20px;
   border-top: solid rgb(173, 39, 39);
   height: 150px;
   max-height: 150px;
   box-sizing: border-box;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
 }
 
 .weapons {
@@ -40,13 +47,27 @@ body {
   max-width: 100px;
 }
 
+.weapon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  height: 100px;
+  width: 100px;
+}
+
+.weapon > img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
 button {
   font-family: "Silkscreen", Arial, Helvetica, sans-serif;
   background-color: #000;
   border: solid #1a83c9;
-  border-bottom: none;
+  border-bottom: solid #00558d;
   color: #fff;
-  box-shadow: 0 6px #00558d;
+  box-shadow: 0 3px #00558d;
   position: relative;
 }
 
@@ -54,13 +75,13 @@ button:hover {
   cursor: pointer;
   background-color: #585858;
   border: solid #0273be;
-  border-bottom: none;
-  box-shadow: 0 6px #003e68;
+  border-bottom: solid #003e68;
+  box-shadow: 0 3px #003e68;
 }
 
 button:active {
   top: 3px;
-  box-shadow: 0 3px #00558d;
+  box-shadow: none;
 }
 
 .main-window {
@@ -112,4 +133,9 @@ button:active {
   to {
     transform: translate3d(-100%, 0, 0)
   }
+}
+
+p {
+  margin: 0;
+  padding: 0;
 }
