@@ -33,12 +33,11 @@ function playRound(playerSelection, computerSelection) {
   } 
 }
 
+
 const buttons = document.querySelectorAll('button');
-const results = document.querySelector('.results');
 const win = document.querySelector('.win');
 const lose = document.querySelector('.lose');
 const weapons = document.querySelector('.weapons');
-const textbox = document.querySelector('.textbox');
 const character = document.querySelector('.character');
 const characterSpritesheet = document.querySelector('.character-spritesheet');
 const text = document.querySelector('.text');
@@ -54,10 +53,18 @@ win.textContent = `Win: ${playerWin}`;
 lose.textContent = `Lose: ${playerLose}`;
 
 
-
 function retryButton() {
-  buttons.forEach(button => {
-    button.disabled = true;
+  const retry = document.createElement('button');
+  retry.classList.add('retry');
+  retry.innerHTML = "Retry?";
+  retry.style.marginTop = "10px";
+  retry.style.width = "100px";
+  retry.style.maxWidth = "100%";
+  setTimeout(() => {
+    left.appendChild(retry);
+  }, 2500);
+  retry.addEventListener('click', () => {
+    location.reload();
   });
 }
 
@@ -72,18 +79,7 @@ function showResult() {
     }, 2000);
     weapons.remove();
     // Retry button that reloads the page
-    const retry = document.createElement('button');
-    retry.classList.add('retry');
-    retry.innerHTML = "Retry?";
-    retry.style.marginTop = "10px";
-    retry.style.width = "100px";
-    retry.style.maxWidth = "100%";
-    setTimeout(() => {
-      left.appendChild(retry);
-    }, 2500);
-    retry.addEventListener('click', () => {
-      location.reload();
-    });
+    retryButton();
   }
   if (playerLose === 5) {
     displayNewText("GAME OVER. Cirno is the strongest!")
@@ -91,18 +87,7 @@ function showResult() {
     characterSpritesheet.classList.add('eyes-closed');
     weapons.remove();
     // Retry button that reloads the page
-    const retry = document.createElement('button');
-    retry.classList.add('retry');
-    retry.innerHTML = "Retry?";
-    retry.style.marginTop = "10px";
-    retry.style.width = "100px";
-    retry.style.maxWidth = "100%";
-    setTimeout(() => {
-      left.appendChild(retry);
-    }, 2500);
-    retry.addEventListener('click', () => {
-      location.reload();
-    });
+    retryButton();
   }
 }
 
@@ -120,7 +105,6 @@ function countScore(result) {
 
 
 function displayNewText(txt) {
-
   // Clear the textbox
   text.innerHTML = '';
 
@@ -136,7 +120,7 @@ function displayNewText(txt) {
 }
 
 
-// Display the results of the round and proceed to the next choice
+// Display the results of the round and proceed to next choice
 function displayResultAndContinue(result) {
   weapons.style.display = "none";
   displayNewText(result);
@@ -219,7 +203,7 @@ function game() {
       audio.play();
     }, true);
     audio.src = source;
-
+    audio.loop = true;
   }, 10000);
 
   // Display choices
