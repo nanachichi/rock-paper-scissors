@@ -12,13 +12,44 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+}
+
+.header {
+  font-size: 20px;
+  color: none;
+  text-shadow: none;
+  background: linear-gradient(rgb(97, 183, 217) 40%, rgb(224, 246, 255) 50%, rgb(179, 205, 214) 60%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .start,
 .game {
-  border: solid rgb(173, 39, 39);;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.footer {
+  padding: 10px;
+}
+
+.github-link {
+  font-weight: 700;
+  text-shadow: none;
+  color: none;
+  background: linear-gradient(rgb(97, 183, 217) 40%, rgb(224, 246, 255) 50%, rgb(179, 205, 214) 60%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.game {
+  border: solid rgb(173, 39, 39);
   height: 550px;
   width: 600px;
   max-height: 550px;
@@ -26,6 +57,8 @@ body {
 }
 
 .start {
+  font-size: 50px;
+  text-shadow: 1px 1px 5px rgb(173, 39, 39);
   display: flex;
   justify-content: center;
   align-items: center;
