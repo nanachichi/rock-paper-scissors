@@ -202,7 +202,7 @@ function game() {
     audio.addEventListener("load", () => {
       audio.play();
     }, true);
-    audio.volume = 0.5;
+    audio.volume = 0.2;
     audio.src = source;
     audio.loop = true;
   }, 10000);
